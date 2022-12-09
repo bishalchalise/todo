@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:todoapp/widgets/appbutton.dart';
+import 'package:todoapp/widgets/create_todo_bottomSheet.dart';
 
 import '../widgets/todo_list.dart';
 
@@ -32,10 +33,19 @@ class HomeScreen extends StatelessWidget {
         padding: const EdgeInsets.all(10.0),
         child: AppButton(
           value: "Create Text",
-          onPressed: (){
-            print('Create Text Pressed');
+          onPressed: () {
+            showModalBottomSheet(
+                context: context,
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(15.0),
+                    topRight: Radius.circular(15.0),
+                  )
+                ),
+                builder: (context) {
+                  return const CreateTodoBottomsheet();
+                });
           },
-
         ),
       ),
     );
