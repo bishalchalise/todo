@@ -1,25 +1,31 @@
 import 'package:flutter/material.dart';
 
 class AppInput extends StatelessWidget {
-  const AppInput({Key? key}) : super(key: key);
-
+  final String hintText;
+  final bool isMultiline;
+  const AppInput({
+    Key? key,
+    required this.hintText,
+    required this.isMultiline,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       decoration: BoxDecoration(
-          color: Colors.grey.shade200,
-          borderRadius: BorderRadius.circular(10.0),
+        color: Colors.grey.shade200,
+        borderRadius: BorderRadius.circular(10.0),
       ),
       child: TextFormField(
-        style: TextStyle(
+        maxLines: isMultiline ? 3 : null ,
+        style: const TextStyle(
           fontSize: 14.0,
           fontWeight: FontWeight.bold,
-          color: Colors.grey.shade300,
+          color: Colors.black,
         ),
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           border: InputBorder.none,
-          hintText: 'Add Task Name...',
+          hintText: hintText,
         ),
       ),
     );
