@@ -21,7 +21,7 @@ class _TodoListHorizontalState extends State<TodoListHorizontal> {
         itemBuilder: (context, index)
     {
       return Container(
-        margin: const EdgeInsets.only(left: 10, right: 10, bottom: 20, top: 20,),
+        margin: const EdgeInsets.only(left: 10, right: 10, bottom: 0, top: 10,),
         padding: const EdgeInsets.all(20.0,),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
@@ -88,7 +88,7 @@ class _TodoListHorizontalState extends State<TodoListHorizontal> {
                 fontSize: 13.0,
               ),
             ),
-            const SizedBox(height: 10,),
+            const SizedBox(height: 50,),
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class DateTimeSelector extends StatefulWidget {
-  const DateTimeSelector({Key? key}) : super(key: key);
+  final Function(DateTime ) onDateTimeSelect;
+  const DateTimeSelector({Key? key, required this.onDateTimeSelect}) : super(key: key);
 
   @override
   State<DateTimeSelector> createState() => _DateTimeSelectorState();
@@ -44,6 +45,16 @@ class _DateTimeSelectorState extends State<DateTimeSelector> {
                 setState(() {
                   _selectedDate = pickedDate;
                 });
+                final dateTimeToPass = DateTime(
+                  _selectedDate!.year,
+                  _selectedDate!.month,
+                  _selectedDate!.day,
+                  _selectedTime?.hour ?? 0,
+                  _selectedTime?.minute ?? 0,
+
+
+                );
+                widget.onDateTimeSelect(dateTimeToPass);
               },
               value: _selectedDate == null
                   ? 'Date'
@@ -67,6 +78,15 @@ class _DateTimeSelectorState extends State<DateTimeSelector> {
                 setState(() {
                   _selectedTime = pickedTime;
                 });
+                final dateTimeToPass = DateTime(
+                  _selectedDate?.year ?? 0,
+                  _selectedDate?.month ?? 0,
+                  _selectedDate?.day ?? 0,
+                  _selectedTime!.hour,
+                  _selectedTime!.minute,
+             
+                );
+                widget.onDateTimeSelect(dateTimeToPass);
               },
               value: _selectedTime == null
                   ? 'Time'

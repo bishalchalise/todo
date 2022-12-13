@@ -7,7 +7,7 @@ class HorizontalTodoListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(
-        top: 40,
+        top: 10,
         right: 20,
         bottom: 5,
         left: 20.0,
@@ -100,57 +100,6 @@ class HorizontalTodoListItem extends StatelessWidget {
               ),
             ],
           ),
-
-
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //   children: [
-          //     const Text(
-          //       'Today  11:12 PM',
-          //       style: TextStyle(
-          //         color: Colors.grey,
-          //         fontSize: 12.0,
-          //       ),
-          //     ),
-          //     Stack(
-          //       children: [
-          //         Container(
-          //           height: 20.0,
-          //           width: 20.0,
-          //           decoration: BoxDecoration(
-          //             image: const DecorationImage(
-          //               image: AssetImage(
-          //                 'assets/images/person_2.jpg',
-          //               ),
-          //               fit: BoxFit.cover,
-          //             ),
-          //             color: Colors.blueAccent,
-          //             shape: BoxShape.circle,
-          //             border: Border.all(color: Colors.white),
-          //           ),
-          //         ),
-          //         Padding(
-          //           padding: const EdgeInsets.only(left: 12.0),
-          //           child: Container(
-          //             height: 20.0,
-          //             width: 20.0,
-          //             decoration:  BoxDecoration(
-          //               image: const DecorationImage(
-          //                 image: AssetImage(
-          //                   'assets/images/person_1.jpg',
-          //                 ),
-          //                 fit: BoxFit.cover,
-          //               ),
-          //               color: Colors.deepOrange,
-          //               shape: BoxShape.circle,
-          //               border: Border.all(color: Colors.white),
-          //             ),
-          //           ),
-          //         ),
-          //       ],
-          //     ),
-          //   ],
-          // )
         ],
       ),
     );

@@ -5,9 +5,23 @@ import 'package:todoapp/widgets/appbutton.dart';
 import 'package:todoapp/widgets/category_selector.dart';
 import 'package:todoapp/widgets/date_time_selector.dart';
 
-class CreateTodoBottomsheet extends StatelessWidget {
-  const CreateTodoBottomsheet({Key? key}) : super(key: key);
+import '../models/todo_model.dart';
 
+class CreateTodoBottomsheet extends StatefulWidget {
+  final Function(Todo) onPressedCreate;
+
+  const CreateTodoBottomsheet({Key? key, required this.onPressedCreate})
+      : super(key: key);
+
+  @override
+  State<CreateTodoBottomsheet> createState() => _CreateTodoBottomsheetState();
+}
+
+class _CreateTodoBottomsheetState extends State<CreateTodoBottomsheet> {
+  TextEditingController _titleController = TextEditingController();
+  TextEditingController _descriptionController = TextEditingController();
+  String _category = 'personal';
+  DateTime? _dateTime;
   @override
   Widget build(BuildContext context) {
     return KeyboardVisibilityBuilder(builder: (context, visibility) {
@@ -37,18 +51,19 @@ class CreateTodoBottomsheet extends StatelessWidget {
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
+                children: [
+                  const Text(
                     'Title Task',
                     style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10.0,
                   ),
                   AppInput(
+                    controller: _titleController,
                     isMultiline: false,
                     hintText: 'Add Task Name..',
                   ),
@@ -59,18 +74,24 @@ class CreateTodoBottomsheet extends StatelessWidget {
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
+                children: [
+                  const Text(
                     'Category',
                     style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10.0,
                   ),
-                  CategorySelector(),
+                  CategorySelector(
+                    onCategorySelect: (String category) {
+                      setState(() {
+                        _category = category;
+                      });
+                    },
+                  ),
                 ],
               ),
               const SizedBox(
@@ -78,18 +99,19 @@ class CreateTodoBottomsheet extends StatelessWidget {
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
+                children: [
+                  const Text(
                     'Description',
                     style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10.0,
                   ),
                   AppInput(
+                    controller: _descriptionController,
                     isMultiline: true,
                     hintText: 'Add Descriptions..',
                   ),
@@ -100,18 +122,24 @@ class CreateTodoBottomsheet extends StatelessWidget {
               ),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
-                  Text(
+                children: [
+                  const Text(
                     'Date Time',
                     style: TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 10.0,
                   ),
-                  DateTimeSelector(),
+                  DateTimeSelector(
+                    onDateTimeSelect: (DateTime dateTime) {
+                      setState(() {
+                        _dateTime = dateTime;
+                      });
+                    },
+                  ),
                 ],
               ),
               const SizedBox(
@@ -142,7 +170,17 @@ class CreateTodoBottomsheet extends StatelessWidget {
                         child: AppButton(
                           color: Colors.blue,
                           value: 'Create',
-                          onPressed: () {},
+                          onPressed: () {
+                            if (_dateTime != null) {
+                              final todo = Todo(
+                                title: _titleController.text,
+                                description: _descriptionController.text,
+                                category: _category,
+                                dateTime: _dateTime!,
+                              );
+                              widget.onPressedCreate(todo);
+                            }
+                          },
                         ),
                       ),
                     ],

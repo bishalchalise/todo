@@ -16,10 +16,7 @@ class HorizontalContainer extends StatelessWidget {
           firstText: 'On Progress  (12)',
           lastText: 'View More',
         ),
-
-
       ],
     );
-
   }
 }

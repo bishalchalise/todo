@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 
 class AppInput extends StatelessWidget {
   final String hintText;
+  final TextEditingController controller;
   final bool isMultiline;
   const AppInput({
     Key? key,
     required this.hintText,
+    required this.controller,
     required this.isMultiline,
   }) : super(key: key);
   @override
@@ -17,6 +19,7 @@ class AppInput extends StatelessWidget {
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: TextFormField(
+        controller: controller,
         maxLines: isMultiline ? 3 : null ,
         style: const TextStyle(
           fontSize: 14.0,

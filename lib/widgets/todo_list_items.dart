@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
+import '../models/todo_model.dart';
+
 class TodoListItem extends StatelessWidget {
-  const TodoListItem({Key? key}) : super(key: key);
+
+  final Todo todo;
+  const TodoListItem({Key? key, required this.todo,
+
+
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +27,14 @@ class TodoListItem extends StatelessWidget {
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                children: const [
+                children:  [
                   Text(
-                    'Meeting with Client',
+                    todo.title,
                     style:
                         TextStyle(fontWeight: FontWeight.bold, fontSize: 12.0),
                   ),
                   Text(
-                    'Redesign Motion Graphics',
+                    todo.description,
                     style: TextStyle(color: Colors.grey),
                   ),
                 ],
@@ -44,8 +51,8 @@ class TodoListItem extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
-                'Today  11:12 PM',
+               Text(
+                'gffggfgg',
                 style: TextStyle(
                   color: Colors.grey,
                   fontSize: 12.0,

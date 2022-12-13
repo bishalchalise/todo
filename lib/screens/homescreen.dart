@@ -3,16 +3,24 @@ import 'package:todoapp/widgets/appbutton.dart';
 import 'package:todoapp/widgets/completed_viewmore.dart';
 import 'package:todoapp/widgets/create_todo_bottomSheet.dart';
 
+import '../models/todo_model.dart';
 import '../widgets/horizontallist_container.dart';
 import '../widgets/todo_list.dart';
 import '../widgets/todo_list_horizontal.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  List<Todo> _todos = [];
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       // appBar: AppBar(
       //   backgroundColor: Colors.transparent,
       //   title: const Text(
@@ -32,21 +40,22 @@ class HomeScreen extends StatelessWidget {
       //   ],
       // ),
       body: Column(
-        children: const [
+        children: [
           HorizontalContainer(),
-          Expanded(
+          const Expanded(
             child: TodoListHorizontal(),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
-          CompletedViewMore(
-
+          const CompletedViewMore(
             firstText: 'Completed',
             lastText: 'View More',
           ),
           Expanded(
-            child: TodoList(),
+            child: TodoList(
+              todos: _todos,
+            ),
           ),
         ],
       ),
@@ -57,16 +66,23 @@ class HomeScreen extends StatelessWidget {
           value: "Create New",
           onPressed: () {
             showModalBottomSheet(
-                isScrollControlled: true,
-                context: context,
-                shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15.0),
-                  topRight: Radius.circular(15.0),
-                )),
-                builder: (context) {
-                  return const CreateTodoBottomsheet();
-                });
+              isScrollControlled: true,
+              context: context,
+              shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(15.0),
+                topRight: Radius.circular(15.0),
+              )),
+              builder: (context) {
+                return CreateTodoBottomsheet(
+                  onPressedCreate: (Todo todo) {
+                    setState(() {
+                      _todos.add(todo);
+                    });
+                  },
+                );
+              },
+            );
           },
         ),
       ),

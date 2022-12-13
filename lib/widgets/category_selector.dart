@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 
 class CategorySelector extends StatefulWidget {
-  const CategorySelector({Key? key}) : super(key: key);
+  final Function(String ) onCategorySelect;
+  const CategorySelector({Key? key,
+    required this.onCategorySelect,
+  }) : super(key: key);
 
   @override
   State<CategorySelector> createState() => _CategorySelectorState();
@@ -24,11 +27,13 @@ class _CategorySelectorState extends State<CategorySelector> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
+
             child: _itemBuilder(
               onPressed: () {
               setState(() {
                 activeCategory = 'personal';
               });
+              widget.onCategorySelect('personal');
               },
               value: 'Personal',
               icon:  Icon(
@@ -36,6 +41,7 @@ class _CategorySelectorState extends State<CategorySelector> {
                 color: activeCategory!= 'personal' ? Colors.grey : Colors.white,
               ),
               isActive: activeCategory == 'personal',
+
             ),
           ),
           const SizedBox(
@@ -46,7 +52,10 @@ class _CategorySelectorState extends State<CategorySelector> {
               onPressed: () {
               setState(() {
                 activeCategory = 'teams';
-              });
+              },
+
+              );
+              widget.onCategorySelect('teams');
               },
               value: 'Teams',
               icon:  Icon(
@@ -54,6 +63,7 @@ class _CategorySelectorState extends State<CategorySelector> {
                 color: activeCategory!= 'teams' ? Colors.grey : Colors.white,
               ),
               isActive: activeCategory == 'teams',
+
             ),
           )
         ],
