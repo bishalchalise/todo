@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CategorySelector extends StatefulWidget {
-  final Function(String ) onCategorySelect;
-  const CategorySelector({Key? key,
+  final String? initialCategory;
+  final Function(String) onCategorySelect;
+  const CategorySelector({
+    Key? key,
     required this.onCategorySelect,
+    this.initialCategory,
   }) : super(key: key);
 
   @override
@@ -11,7 +14,15 @@ class CategorySelector extends StatefulWidget {
 }
 
 class _CategorySelectorState extends State<CategorySelector> {
-  String activeCategory = "personal";
+  String _activeCategory = "personal";
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.initialCategory != null) {
+      _activeCategory = widget.initialCategory!;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,21 +38,20 @@ class _CategorySelectorState extends State<CategorySelector> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-
             child: _itemBuilder(
               onPressed: () {
-              setState(() {
-                activeCategory = 'personal';
-              });
-              widget.onCategorySelect('personal');
+                setState(() {
+                  _activeCategory = 'personal';
+                });
+                widget.onCategorySelect('personal');
               },
               value: 'Personal',
-              icon:  Icon(
+              icon: Icon(
                 Icons.person_outline,
-                color: activeCategory!= 'personal' ? Colors.grey : Colors.white,
+                color:
+                    _activeCategory != 'personal' ? Colors.grey : Colors.white,
               ),
-              isActive: activeCategory == 'personal',
-
+              isActive: _activeCategory == 'personal',
             ),
           ),
           const SizedBox(
@@ -50,20 +60,19 @@ class _CategorySelectorState extends State<CategorySelector> {
           Expanded(
             child: _itemBuilder(
               onPressed: () {
-              setState(() {
-                activeCategory = 'teams';
-              },
-
-              );
-              widget.onCategorySelect('teams');
+                setState(
+                  () {
+                    _activeCategory = 'teams';
+                  },
+                );
+                widget.onCategorySelect('teams');
               },
               value: 'Teams',
-              icon:  Icon(
+              icon: Icon(
                 Icons.people_outline,
-                color: activeCategory!= 'teams' ? Colors.grey : Colors.white,
+                color: _activeCategory != 'teams' ? Colors.grey : Colors.white,
               ),
-              isActive: activeCategory == 'teams',
-
+              isActive: _activeCategory == 'teams',
             ),
           )
         ],
@@ -96,7 +105,7 @@ class _CategorySelectorState extends State<CategorySelector> {
             ),
             Text(
               value,
-              style:  TextStyle(
+              style: TextStyle(
                 color: !isActive ? Colors.grey : Colors.white,
               ),
             ),

@@ -177,9 +177,9 @@ class _TodoListHorizontalState extends State<TodoListHorizontal> {
 
                       ],
                     ),
-                    SizedBox(width: 140,),
-                    Icon(Icons.incomplete_circle_outlined),
-                    Text('78%'),
+                    const SizedBox(width: 140,),
+                    const Icon(Icons.incomplete_circle_outlined),
+                    const Text('78%'),
                   ],
                 ),
               ],

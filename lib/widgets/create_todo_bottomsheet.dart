@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:todoapp/widgets/app_input.dart';
 import 'package:todoapp/widgets/appbutton.dart';
 import 'package:todoapp/widgets/category_selector.dart';
@@ -8,20 +9,38 @@ import 'package:todoapp/widgets/date_time_selector.dart';
 import '../models/todo_model.dart';
 
 class CreateTodoBottomsheet extends StatefulWidget {
-  final Function(Todo) onPressedCreate;
+  final Function(Todo, bool) onPressedCreate;
+  final Todo? todoToEdit;
 
-  const CreateTodoBottomsheet({Key? key, required this.onPressedCreate})
-      : super(key: key);
+  const CreateTodoBottomsheet({
+    Key? key,
+    required this.onPressedCreate,
+    this.todoToEdit,
+  }) : super(key: key);
 
   @override
   State<CreateTodoBottomsheet> createState() => _CreateTodoBottomsheetState();
 }
 
 class _CreateTodoBottomsheetState extends State<CreateTodoBottomsheet> {
-  TextEditingController _titleController = TextEditingController();
-  TextEditingController _descriptionController = TextEditingController();
+   String _id = DateTime.now().microsecond.toString();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _descriptionController = TextEditingController();
   String _category = 'personal';
   DateTime? _dateTime;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.todoToEdit != null) {
+      _id = widget.todoToEdit!.id;
+      _titleController.text = widget.todoToEdit!.title;
+      _descriptionController.text = widget.todoToEdit!.description;
+      _category = widget.todoToEdit!.category;
+      _dateTime = widget.todoToEdit!.dateTime;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return KeyboardVisibilityBuilder(builder: (context, visibility) {
@@ -86,6 +105,7 @@ class _CreateTodoBottomsheetState extends State<CreateTodoBottomsheet> {
                     height: 10.0,
                   ),
                   CategorySelector(
+                    initialCategory: _category,
                     onCategorySelect: (String category) {
                       setState(() {
                         _category = category;
@@ -134,6 +154,7 @@ class _CreateTodoBottomsheetState extends State<CreateTodoBottomsheet> {
                     height: 10.0,
                   ),
                   DateTimeSelector(
+                    initialDateTime: _dateTime,
                     onDateTimeSelect: (DateTime dateTime) {
                       setState(() {
                         _dateTime = dateTime;
@@ -169,16 +190,29 @@ class _CreateTodoBottomsheetState extends State<CreateTodoBottomsheet> {
                       Expanded(
                         child: AppButton(
                           color: Colors.blue,
-                          value: 'Create',
+                          value: widget.todoToEdit == null ? 'Create' : 'Edit',
                           onPressed: () {
-                            if (_dateTime != null) {
+                            if (_titleController.text == '') {
+                              Fluttertoast.showToast(
+                                  msg: 'Title Cannot be Empty');
+                            } else if (_descriptionController.text == '') {
+                              Fluttertoast.showToast(
+                                  msg: 'Description cannot be empty');
+                            } else if (_dateTime == null) {
+                              Fluttertoast.showToast(
+                                  msg: 'Date or Time cannot be empty');
+                            } else {
                               final todo = Todo(
+                                id: _id,
                                 title: _titleController.text,
                                 description: _descriptionController.text,
                                 category: _category,
                                 dateTime: _dateTime!,
+                                isCompleted: false,
                               );
-                              widget.onPressedCreate(todo);
+                              final isEditing = widget.todoToEdit != null;
+                              widget.onPressedCreate(todo, isEditing);
+                              Navigator.pop(context);
                             }
                           },
                         ),

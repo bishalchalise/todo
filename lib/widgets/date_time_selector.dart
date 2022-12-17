@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 
 class DateTimeSelector extends StatefulWidget {
-  final Function(DateTime ) onDateTimeSelect;
-  const DateTimeSelector({Key? key, required this.onDateTimeSelect}) : super(key: key);
+  final DateTime? initialDateTime;
+  final Function(DateTime) onDateTimeSelect;
+  const DateTimeSelector(
+      {Key? key, required this.onDateTimeSelect, this.initialDateTime})
+      : super(key: key);
 
   @override
   State<DateTimeSelector> createState() => _DateTimeSelectorState();
@@ -11,6 +14,26 @@ class DateTimeSelector extends StatefulWidget {
 class _DateTimeSelectorState extends State<DateTimeSelector> {
   DateTime? _selectedDate;
   TimeOfDay? _selectedTime;
+
+  @override
+  void initState() {
+    super.initState();
+    {
+      if (widget.initialDateTime != null) {
+        _selectedDate = DateTime(
+          widget.initialDateTime!.year,
+          widget.initialDateTime!.month,
+          widget.initialDateTime!.day,
+        );
+        _selectedTime = TimeOfDay(
+          hour: widget.initialDateTime!.hour,
+          minute: widget.initialDateTime!.minute,
+        
+        );
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final currentDate = DateTime.now();
@@ -51,8 +74,6 @@ class _DateTimeSelectorState extends State<DateTimeSelector> {
                   _selectedDate!.day,
                   _selectedTime?.hour ?? 0,
                   _selectedTime?.minute ?? 0,
-
-
                 );
                 widget.onDateTimeSelect(dateTimeToPass);
               },
@@ -84,7 +105,6 @@ class _DateTimeSelectorState extends State<DateTimeSelector> {
                   _selectedDate?.day ?? 0,
                   _selectedTime!.hour,
                   _selectedTime!.minute,
-             
                 );
                 widget.onDateTimeSelect(dateTimeToPass);
               },

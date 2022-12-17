@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 class CompletedViewMore extends StatelessWidget {
 
+
+  final Function() onTap; 
   final String firstText;
   final String lastText;
-  const CompletedViewMore({Key? key, required this.firstText, required this.lastText}) : super(key: key);
+  const CompletedViewMore({Key? key, required this.firstText, required this.lastText, required this.onTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +29,7 @@ class CompletedViewMore extends StatelessWidget {
                 ),
               ),
               InkWell(
-                onTap: (){},
+                onTap: onTap,
                 child:  Text(
                   lastText,
                   style: const TextStyle(color: Colors.blue),

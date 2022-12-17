@@ -10,11 +10,12 @@ class HorizontalContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const [
-        HorizontalTodoListItem(),
+      children:  [
+       const HorizontalTodoListItem(),
         CompletedViewMore(
           firstText: 'On Progress  (12)',
           lastText: 'View More',
+          onTap: () {},
         ),
       ],
     );

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "85066757609",
+    "project_id": "tasky-6aabb",
+    "storage_bucket": "tasky-6aabb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:85066757609:android:97746b069a8d3b01228778",
+        "android_client_info": {
+          "package_name": "com.example.todoapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "85066757609-akjejk140l14ob2bs0tgbmo2u7jj70t1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAxWSUO-QXXzm3kUkUBEECmG66YwLX4F6k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "85066757609-akjejk140l14ob2bs0tgbmo2u7jj70t1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
